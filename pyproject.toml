@@ -1,17 +1,17 @@
 [tool.poetry]
-name = "aldtts-core"
+name = "alsbts-core"
 version = "0.4.0"
-description = "Interventional test for independence"
+description = "stream based active learning"
 authors = ["bela127 <bhb127@outlook.de>"]
 license = "MIT"
 packages = [
-    { include = "aldtts/core", from = "." }
+    { include = "alsbts/core", from = "." }
 ]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
-#alts-core = { path = "/home/bela/Cloud/code/Git/alts-core", develop = true }
-alts-core = {git = "https://github.com/bela127/alts-core.git"}
+alts-core = { path = "/home/bela/Cloud/code/Git/alts-core", develop = true }
+#alts-core = {git = "https://github.com/bela127/alts-core.git"}
 libclang = "<12.0"
 coloredlogs = "^15.0.1"
 ipython = "^8.0.1"
