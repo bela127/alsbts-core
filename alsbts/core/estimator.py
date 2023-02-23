@@ -4,20 +4,35 @@ from typing import TYPE_CHECKING
 from dataclasses import dataclass
 
 from alts.core.experiment_module import ExperimentModule
+from alts.core.subscriber import ExperimentSubscriber, ResultSubscriber
 
 if TYPE_CHECKING:
-    from typing_extensions import Self #type: ignore
-    from alts.core.data_sampler import DataSampler
-    from alts.core.query.query_sampler import QuerySampler
-
+    from nptyping import  NDArray, Number, Shape
 
 @dataclass
-class Estimator(ExperimentModule):
+class Estimator(ExperimentSubscriber, ResultSubscriber):
 
-    def estimate(self):
+    def __post_init__(self):
+        super().__post_init__()
+
+    def estimate(self, times, queries, vars) -> NDArray[Shape["query_nr, ... result_dim"], Number]:
         raise NotImplementedError()
+
+    def query(self, queries):
+        raise NotImplementedError()
+
+    def train(self) -> None:
+        pass
+
+    def result_update(self):
+        super().result_update()
+        self.train()
         
 
-    def __call__(self, exp_modules = None, **kwargs) -> Self:
-        obj = super().__call__(exp_modules, **kwargs)
-        return obj
+    def experiment_update(self):
+        super().experiment_update()
+        times = self.exp_modules.stream_data_pool.last_queries
+        vars = self.exp_modules.stream_data_pool.last_results
+        queries = self.exp_modules.oracle.query_queue.last
+        self.estimate(times, queries, vars)
+        
