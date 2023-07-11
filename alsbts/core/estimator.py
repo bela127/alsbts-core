@@ -31,8 +31,8 @@ class Estimator(ExperimentSubscriber, ResultSubscriber):
 
     def experiment_update(self):
         super().experiment_update()
-        times = self.exp_modules.stream_data_pool.last_queries
-        vars = self.exp_modules.stream_data_pool.last_results
-        queries = self.exp_modules.oracle.query_queue.last
+        times = self.exp_modules.data_pools.stream.last_queries
+        vars = self.exp_modules.data_pools.stream.last_results
+        queries = self.exp_modules.oracles.process.last
         self.estimate(times, queries, vars)
         
