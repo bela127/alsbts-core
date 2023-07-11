@@ -1,7 +1,6 @@
-from alts.core.configuration import Configurable
+from alts.core.experiment_module import ExperimentModule
 
-
-class ChangeDetector(Configurable):
+class ChangeDetector(ExperimentModule):
 
     def detect(self, changing_signal) -> float:
         raise NotImplementedError()
