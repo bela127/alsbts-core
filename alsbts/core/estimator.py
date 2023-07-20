@@ -34,6 +34,6 @@ class Estimator(ExperimentModule, ExpModSubscriber, ResultDataSubscriber):
         super().experiment_update(subscription)
         times = self.exp_modules.data_pools.stream.last_queries
         vars = self.exp_modules.data_pools.stream.last_results
-        queries = self.exp_modules.oracles.process.last
+        queries = self.exp_modules.oracles.process.latest_add
         self.estimate(times, queries, vars)
         
