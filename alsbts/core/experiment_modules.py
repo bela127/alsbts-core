@@ -24,6 +24,6 @@ class StreamExperiment(InitQueryExperimentModules):
 
     initial_query_sampler: QuerySampler = init(default_factory=StreamQuerySampler)
 
-    def __post_init__(self):
-        super().__post_init__()
+    def post_init(self):
+        super().post_init()
         self.estimator = self.estimator(exp_modules = self)

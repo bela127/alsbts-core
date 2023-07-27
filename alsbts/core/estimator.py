@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from dataclasses import dataclass
+from abc import abstractmethod
 
 from alts.core.experiment_module import ExperimentModule
 from alts.core.subscriber import ExpModSubscriber, ResultDataSubscriber
@@ -10,15 +11,13 @@ if TYPE_CHECKING:
     from nptyping import  NDArray, Number, Shape
     from alts.core.subscribable import Subscribable
 
-@dataclass
 class Estimator(ExperimentModule, ExpModSubscriber, ResultDataSubscriber):
 
-    def __post_init__(self):
-        super().__post_init__()
-
+    @abstractmethod
     def estimate(self, times, queries, vars) -> NDArray[Shape["query_nr, ... result_dim"], Number]:
         raise NotImplementedError()
 
+    @abstractmethod
     def query(self, queries):
         raise NotImplementedError()
 
