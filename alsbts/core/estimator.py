@@ -21,12 +21,12 @@ class Estimator(ExperimentModule, ExpModSubscriber, ResultDataSubscriber):
     def query(self, queries):
         raise NotImplementedError()
 
-    def train(self) -> None:
+    def train(self, result_pool) -> None:
         pass
 
     def result_update(self, subscription: Subscribable):
         super().result_update(subscription)
-        self.train()
+        self.train(subscription)
         
 
     def experiment_update(self, subscription: Subscribable):
