@@ -9,7 +9,7 @@ from alsbts.modules.query.query_sampler import StreamQuerySampler
 
 
 if TYPE_CHECKING:
-    from alsbts.core.estimator import Estimator
+    from alsbts.core.estimator import SBEstimator
     from alts.core.data.queried_data_pool import QueriedDataPool
     from alts.core.oracle.oracle import Oracle
     from alts.core.configuration import Required
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class StreamExperiment(InitQueryExperimentModules):
-    estimator: Estimator = init()
+    estimator: SBEstimator = init()
 
     initial_query_sampler: QuerySampler = init(default_factory=StreamQuerySampler)
 
